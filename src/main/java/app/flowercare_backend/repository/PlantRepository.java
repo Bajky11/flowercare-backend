@@ -1,13 +1,13 @@
 package app.flowercare_backend.repository;
 
 import app.flowercare_backend.entities.Plant;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface PlantRepository extends JpaRepository<Plant, Long> {
 
-    //@Query(value = "SELECT * FROM plant WHERE name LIKE %name%", nativeQuery = true)
-    List<Plant> findByNameContaining(String name);
+    Page<Plant> findByNameContaining(String name, Pageable pageable);
 }

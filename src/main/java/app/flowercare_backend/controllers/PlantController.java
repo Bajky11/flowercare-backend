@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class PlantController {
     @GetMapping(value = API_PLANT_PATH + "/{id}")
     public ResponseEntity<?> getByID(@PathVariable Long id) {
         Optional<Plant> plant = plantService.getById(id);
-        if(!plant.isPresent()){
+        if (!plant.isPresent()) {
             return ResponseEntity.badRequest().body("Plant with specified ID not found");
         }
         return ResponseEntity.ok(plant);
@@ -50,12 +51,13 @@ public class PlantController {
         return ResponseEntity.ok(plants);
     }
 
-    //localhost:9000/flowercare/v1/plants/search?name=b
+    //localhost:9000/flowercare/v1/plants/search?name=b&size=10&page=0
     @GetMapping(value = API_PLANT_PATH + "/search")
-    public ResponseEntity<List<Plant>> getByNameContaining(@RequestParam String name) {
-        List<Plant> plants = plantService.findByNameContaining(name);
-        if(plants.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<Page<Plant>> getByNameContaining(@RequestParam String name, Pageable pageable) {
+
+        Page<Plant> plants = plantService.findByNameContainingPagable(name, pageable);
+        if (plants.isEmpty()) {
+            return ResponseEntity.ok(Page.empty());
         }
         return ResponseEntity.ok(plants);
     }

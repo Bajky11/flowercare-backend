@@ -32,7 +32,7 @@ public class PlantService {
         return plantRepository.findAll(pageable);
     }
 
-    public List<Plant> findByNameContaining(String name) {
-        return plantRepository.findByNameContaining(name);
+    public Page<Plant> findByNameContainingPagable(String name, Pageable pageable) {
+        return plantRepository.findByNameContaining(name, pageable);
     }
 }
