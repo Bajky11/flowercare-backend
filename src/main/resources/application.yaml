@@ -1,0 +1,14 @@
+spring:
+    datasource:
+        url: jdbc:postgresql://localhost:5432/nnpia
+        username: nnpia
+        password: nnpia
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+          hibernate:
+              show_sql: true
+              format_sql: true
+server:
+    port: 9000
