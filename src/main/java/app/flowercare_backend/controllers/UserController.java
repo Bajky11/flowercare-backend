@@ -16,17 +16,6 @@ public class UserController {
     private UserService userService;
     public static final String API_USER_PATH = "/flowercare/v1/users";
 
-    /*
-    @GetMapping(value = API_USER_PATH + "/{id}")
-    public ResponseEntity<String> getByID(@PathVariable Long id) {
-        Optional<AppUser> appUser = userService.getById(id);
-        if (!appUser.isPresent()) {
-            return ResponseEntity.badRequest().body("user not found");
-        }
-        return ResponseEntity.ok().body("appUser");
-    }
-    */
-
     @PostMapping(value = API_USER_PATH + "/register")
     public ResponseEntity<?> register(@RequestBody AppUser user) {
         if (user == null || user.getUsername() == null || user.getPassword() == null) {
