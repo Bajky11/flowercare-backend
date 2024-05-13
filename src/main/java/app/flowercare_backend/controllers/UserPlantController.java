@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/flowercare/v1/userplants")
 public class UserPlantController {
 
     private final UserPlantService userPlantService;
     private final UserService userService;
     private final PlantService plantService;
+
+    public static final String API_USERPLANT_PATH = "/flowercare/v1/userplants";
 
     @Autowired
     public UserPlantController(UserPlantService userPlantService,UserService userService,PlantService plantService) {
@@ -31,13 +32,13 @@ public class UserPlantController {
     }
 
     // Get all plants for a specific user
-    @GetMapping("/{userId}")
+    @GetMapping(API_USERPLANT_PATH + "/{userId}")
     public ResponseEntity<List<UserPlant>> getAllPlantsForUser(@PathVariable Long userId) {
         List<UserPlant> userPlants = userPlantService.findAllByUserId(userId);
         return ResponseEntity.ok(userPlants);
     }
 
-    @PostMapping("/add")
+    @PostMapping(API_USERPLANT_PATH +"/add")
     public ResponseEntity<?> addPlantToUser(@RequestBody UserPlantRequest request) {
         Optional<AppUser> user = userService.getById(request.getUserId());
         if(!user.isPresent()){
@@ -53,7 +54,7 @@ public class UserPlantController {
     }
 
     @Transactional
-    @PostMapping("/water/{userPlantId}")
+    @PostMapping(API_USERPLANT_PATH +"/water/{userPlantId}")
     public ResponseEntity<?> waterUserPlant(@PathVariable Long userPlantId) {
         Optional<UserPlant> userPlant = userPlantService.findById(userPlantId);
 
@@ -65,7 +66,7 @@ public class UserPlantController {
     }
 
     @Transactional
-    @PostMapping("/fertilize/{userPlantId}")
+    @PostMapping(API_USERPLANT_PATH + "/fertilize/{userPlantId}")
     public ResponseEntity<?> fertilizeUserPlant(@PathVariable Long userPlantId) {
         Optional<UserPlant> userPlant = userPlantService.findById(userPlantId);
 

@@ -36,7 +36,7 @@ public class PlantController {
 
     @PostMapping(value = API_PLANT_PATH)
     public ResponseEntity<String> add(@RequestBody Plant plant) {
-        if (plant == null) {
+        if (plant == null ) {
             return ResponseEntity.badRequest().body("Invalid plant object");
         }
 
